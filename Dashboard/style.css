@@ -1,0 +1,3551 @@
+/* =========================================================
+   codeNcore CONVEYOR MONITORING DASHBOARD
+   LIGHT INDUSTRIAL UI
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f4f7fb;
+    --white: #ffffff;
+    --border: #e3e8ef;
+    --text: #172033;
+    --muted: #718096;
+
+    --primary: #1769e0;
+    --primary-light: #eaf2ff;
+
+    --green: #16a36a;
+    --green-light: #e9f9f1;
+
+    --orange: #ed8b22;
+    --orange-light: #fff4e6;
+
+    --purple: #7657d9;
+    --purple-light: #f1edff;
+
+    --red: #e04f5f;
+    --red-light: #fff0f2;
+
+    --yellow: #e7a400;
+    --yellow-light: #fff7dd;
+
+    --shadow: 0 8px 25px rgba(32, 50, 80, 0.07);
+    --shadow-large: 0 15px 40px rgba(32, 50, 80, 0.09);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 245px;
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    border-right: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 100;
+}
+
+.brand {
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.brand img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+}
+
+.brand h2 {
+    font-size: 20px;
+
+    letter-spacing: -0.5px;
+}
+
+.brand span {
+    display: block;
+
+    color: var(--primary);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-top: 4px;
+}
+
+.sidebar-title {
+    padding: 25px 20px 10px;
+
+    color: #9aa6b8;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.sidebar nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 0 12px;
+}
+
+.nav-item {
+    border: none;
+
+    background: transparent;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    color: #667085;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    transition: 0.2s ease;
+}
+
+.nav-item:hover {
+    background: #f5f8fc;
+
+    color: var(--primary);
+}
+
+.nav-item.active {
+    background: var(--primary-light);
+
+    color: var(--primary);
+}
+
+.nav-icon {
+    width: 25px;
+    height: 25px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 16px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding: 15px;
+}
+
+.system-box {
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: #fafcfe;
+}
+
+.status-dot,
+.green-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    display: inline-block;
+
+    box-shadow:
+        0 0 0 4px rgba(22, 163, 106, 0.1);
+}
+
+.system-box strong {
+    display: block;
+
+    font-size: 11px;
+}
+
+.system-box small {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 3px;
+}
+
+.version {
+    text-align: center;
+
+    color: #a1aaba;
+
+    font-size: 9px;
+
+    margin-top: 13px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    width: calc(100% - 245px);
+
+    margin-left: 245px;
+
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 92px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-bottom: 1px solid var(--border);
+
+    padding: 17px 30px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.breadcrumb {
+    color: #9aa6b8;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.breadcrumb span {
+    color: var(--primary);
+}
+
+.topbar h1 {
+    font-size: 21px;
+
+    letter-spacing: -0.5px;
+}
+
+.topbar p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 4px;
+}
+
+.topbar-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.system-status {
+    font-size: 9px;
+
+    font-weight: 800;
+
+    color: var(--green);
+
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+}
+
+.clock {
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #4a5568;
+
+    min-width: 70px;
+}
+
+.operator {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding-left: 18px;
+
+    border-left: 1px solid var(--border);
+}
+
+.operator-avatar {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.operator strong {
+    display: block;
+
+    font-size: 11px;
+}
+
+.operator span {
+    display: block;
+
+    font-size: 9px;
+
+    color: var(--muted);
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+    display: none;
+
+    padding: 28px 30px 45px;
+}
+
+.page.active-page {
+    display: block;
+}
+
+.page-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.eyebrow {
+    display: block;
+
+    color: var(--primary);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 7px;
+}
+
+.page-heading h2 {
+    font-size: 23px;
+
+    letter-spacing: -0.6px;
+}
+
+.page-heading p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 6px;
+}
+
+.running-badge {
+    background: var(--green-light);
+
+    color: var(--green);
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.running-badge span {
+    width: 7px;
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+}
+
+.outline-button {
+    border: 1px solid #d9e2ed;
+
+    background: #fff;
+
+    color: #536174;
+
+    padding: 9px 13px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.outline-button:hover {
+    color: var(--primary);
+
+    border-color: #b9d0f4;
+
+    background: var(--primary-light);
+}
+
+
+/* =========================================================
+   HEALTH
+========================================================= */
+
+.health-grid {
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.health-card,
+.prediction-card {
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    padding: 20px;
+}
+
+.card-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #8995a7;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.card-status {
+    color: var(--green);
+
+    background: var(--green-light);
+
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    font-size: 8px;
+}
+
+.health-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 18px;
+}
+
+.health-ring {
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            var(--green) 0deg 338deg,
+            #edf1f5 338deg 360deg
+        );
+
+    display: grid;
+
+    place-items: center;
+
+    flex-shrink: 0;
+
+    position: relative;
+}
+
+.health-ring::before {
+    content: "";
+
+    width: 99px;
+    height: 99px;
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: #fff;
+}
+
+.health-ring > div {
+    position: relative;
+
+    text-align: center;
+}
+
+.health-ring strong {
+    font-size: 35px;
+}
+
+.health-ring small {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.health-info h3 {
+    font-size: 16px;
+}
+
+.health-info p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+    margin: 6px 0 15px;
+}
+
+.mini-health {
+    display: flex;
+
+    gap: 22px;
+}
+
+.mini-health div span {
+    display: block;
+
+    font-size: 8px;
+
+    color: #8a96a8;
+}
+
+.mini-health strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+.prediction-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-top: 25px;
+}
+
+.prediction-icon {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+.prediction-main h3 {
+    color: var(--green);
+
+    font-size: 16px;
+}
+
+.prediction-main p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 4px;
+}
+
+.prediction-score {
+    margin-top: 25px;
+}
+
+.score-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #7c889a;
+
+    font-size: 9px;
+
+    margin-bottom: 8px;
+}
+
+.score-head strong {
+    color: var(--green);
+}
+
+.progress {
+    width: 100%;
+
+    height: 7px;
+
+    border-radius: 10px;
+
+    background: #edf1f5;
+
+    overflow: hidden;
+}
+
+.progress div {
+    height: 100%;
+
+    background: var(--green);
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 14px;
+}
+
+.section-title h2 {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   DASHBOARD SENSOR CARDS
+========================================================= */
+
+.dashboard-sensor-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.dash-sensor {
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    box-shadow: var(--shadow);
+
+    min-height: 180px;
+}
+
+.sensor-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+.sensor-label {
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: var(--muted);
+}
+
+.sensor-head h3 {
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.sensor-circle {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 9px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+.vibration .sensor-circle {
+    background: var(--primary-light);
+
+    color: var(--primary);
+}
+
+.temperature .sensor-circle {
+    background: var(--yellow-light);
+
+    color: var(--yellow);
+}
+
+.tension .sensor-circle {
+    background: var(--orange-light);
+
+    color: var(--orange);
+}
+
+.speed .sensor-circle {
+    background: var(--purple-light);
+
+    color: var(--purple);
+}
+
+.current .sensor-circle {
+    background: var(--red-light);
+
+    color: var(--red);
+}
+
+.material .sensor-circle {
+    background: var(--green-light);
+
+    color: var(--green);
+}
+
+.big-value {
+    margin-top: 18px;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 5px;
+}
+
+.big-value span {
+    font-size: 29px;
+
+    font-weight: 800;
+}
+
+.big-value small {
+    font-size: 10px;
+
+    color: var(--muted);
+}
+
+.wave-small {
+    height: 38px;
+
+    margin-top: 8px;
+}
+
+.wave-small canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.temperature-meter,
+.line-meter {
+    width: 100%;
+
+    height: 7px;
+
+    background: #edf1f5;
+
+    border-radius: 10px;
+
+    margin-top: 22px;
+
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+
+    width: 48%;
+
+    background: var(--yellow);
+
+    border-radius: 10px;
+}
+
+.line-meter div {
+    height: 100%;
+
+    background: var(--orange);
+
+    border-radius: 10px;
+}
+
+.speed-scale {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 23px;
+
+    font-size: 8px;
+
+    color: var(--muted);
+}
+
+.speed-track {
+    flex: 1;
+
+    height: 6px;
+
+    background: #edf1f5;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.speed-track div {
+    height: 100%;
+
+    background: var(--purple);
+
+    border-radius: 10px;
+}
+
+.current-bars {
+    height: 38px;
+
+    margin-top: 8px;
+
+    display: flex;
+
+    gap: 4px;
+
+    align-items: flex-end;
+}
+
+.current-bars span {
+    flex: 1;
+
+    background: var(--red);
+
+    border-radius: 3px 3px 0 0;
+}
+
+.current-bars span:nth-child(1) {
+    height: 40%;
+}
+
+.current-bars span:nth-child(2) {
+    height: 55%;
+}
+
+.current-bars span:nth-child(3) {
+    height: 45%;
+}
+
+.current-bars span:nth-child(4) {
+    height: 70%;
+}
+
+.current-bars span:nth-child(5) {
+    height: 60%;
+}
+
+.current-bars span:nth-child(6) {
+    height: 80%;
+}
+
+.current-bars span:nth-child(7) {
+    height: 62%;
+}
+
+.current-bars span:nth-child(8) {
+    height: 75%;
+}
+
+.sensor-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 13px;
+
+    padding-top: 11px;
+
+    border-top: 1px solid #edf0f4;
+
+    font-size: 8px;
+
+    color: #8b96a6;
+}
+
+.normal-text {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   LOWER DASHBOARD
+========================================================= */
+
+.dashboard-lower {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-top: 18px;
+}
+
+.panel {
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    box-shadow: var(--shadow);
+
+    padding: 18px;
+}
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.panel-header h2 {
+    font-size: 15px;
+}
+
+.offline-badge {
+    color: var(--orange);
+
+    background: var(--orange-light);
+
+    padding: 6px 8px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+
+    font-weight: 800;
+}
+
+.camera-placeholder {
+    min-height: 185px;
+
+    border: 1px dashed #cdd6e2;
+
+    background: #f9fbfd;
+
+    border-radius: 10px;
+
+    margin-top: 14px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+.camera-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    background: #eef3f9;
+
+    color: #91a0b2;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 20px;
+}
+
+.camera-placeholder h3 {
+    margin-top: 11px;
+
+    font-size: 12px;
+}
+
+.camera-placeholder p {
+    width: 75%;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    margin-top: 5px;
+}
+
+.camera-status {
+    margin-top: 12px;
+
+    color: #9aa6b7;
+
+    font-size: 7px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.conveyor-visual {
+    min-height: 185px;
+
+    margin-top: 14px;
+
+    border-radius: 10px;
+
+    background: #f7f9fc;
+
+    border: 1px solid #edf0f4;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.belt-frame {
+    width: 82%;
+
+    height: 90px;
+
+    position: relative;
+}
+
+.belt {
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+
+    top: 24px;
+
+    height: 31px;
+
+    border-radius: 20px;
+
+    background: #4d5664;
+
+    border: 5px solid #333c49;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 0 12px;
+}
+
+.belt span {
+    width: 25px;
+    height: 7px;
+
+    background: #697482;
+
+    border-radius: 5px;
+}
+
+.pulley {
+    position: absolute;
+
+    width: 49px;
+    height: 49px;
+
+    border-radius: 50%;
+
+    background: #dce3eb;
+
+    border: 7px solid #697584;
+
+    top: 15px;
+
+    z-index: 2;
+}
+
+.pulley.left {
+    left: 5px;
+}
+
+.pulley.right {
+    right: 5px;
+}
+
+.support {
+    position: absolute;
+
+    width: 7px;
+    height: 50px;
+
+    background: #7c8795;
+
+    top: 52px;
+}
+
+.support-one {
+    left: 25%;
+}
+
+.support-two {
+    left: 50%;
+}
+
+.support-three {
+    right: 25%;
+}
+
+.twin-status {
+    position: absolute;
+
+    bottom: 9px;
+
+    font-size: 7px;
+
+    font-weight: 800;
+
+    color: var(--green);
+}
+
+.twin-status span {
+    width: 6px;
+    height: 6px;
+
+    display: inline-block;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    margin-right: 5px;
+}
+
+
+/* =========================================================
+   3D DIGITAL TWIN
+========================================================= */
+
+.digital-twin-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        310px;
+
+    gap: 18px;
+}
+
+.digital-twin-card {
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+}
+
+.digital-twin-header {
+    min-height: 76px;
+
+    padding: 16px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.digital-twin-header h3 {
+    font-size: 16px;
+}
+
+.twin-controls {
+    display: flex;
+
+    gap: 8px;
+}
+
+.twin-controls button {
+    border: 1px solid #dce4ee;
+
+    background: #ffffff;
+
+    color: #586579;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.twin-controls button:hover {
+    background: var(--primary-light);
+
+    border-color: #bcd1ef;
+
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   3D CANVAS
+========================================================= */
+
+.conveyor-3d-container {
+    width: 100%;
+
+    height: 560px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f9fbfd 0%,
+            #eef3f8 100%
+        );
+}
+
+.conveyor-3d-container canvas {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    display: block;
+}
+
+.twin-bottom-bar {
+    height: 42px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-top: 1px solid var(--border);
+
+    color: #8b97a8;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+.twin-online-dot {
+    width: 7px;
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+    margin-right: 6px;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(22, 163, 106, 0.10);
+}
+
+
+/* =========================================================
+   3D SIDE PANEL
+========================================================= */
+
+.twin-side-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.asset-status-card,
+.asset-data-card,
+.health-status-card {
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: var(--shadow);
+
+    padding: 18px;
+}
+
+.asset-status-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 14px;
+}
+
+.large-status-dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 0 6px
+        rgba(22, 163, 106, 0.10);
+}
+
+.asset-status-title h3 {
+    color: var(--green);
+
+    font-size: 16px;
+}
+
+.asset-status-title p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    margin-top: 4px;
+}
+
+.asset-data-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+.asset-data-row:last-child {
+    border-bottom: none;
+}
+
+.asset-data-row span {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.asset-data-row strong {
+    font-size: 11px;
+
+    color: var(--text);
+}
+
+.health-status-number {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 3px;
+
+    margin-top: 12px;
+}
+
+.health-status-number strong {
+    font-size: 36px;
+}
+
+.health-status-number span {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.health-status-bar {
+    height: 7px;
+
+    background: #edf1f5;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    margin-top: 10px;
+}
+
+.health-status-bar div {
+    width: 94%;
+
+    height: 100%;
+
+    background: var(--green);
+
+    border-radius: 10px;
+}
+
+.health-status-card p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   LIVE SENSOR PAGE
+========================================================= */
+
+.simulation-status {
+    display: flex;
+
+    gap: 8px;
+
+    align-items: center;
+
+    color: var(--green);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+.simulation-status span:first-child {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    display: inline-block;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(22, 163, 106, 0.1);
+}
+
+.sensor-controls {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 14px 17px;
+
+    margin-bottom: 15px;
+}
+
+.sensor-controls strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+.sensor-controls span {
+    display: block;
+
+    font-size: 9px;
+
+    color: var(--muted);
+
+    margin-top: 3px;
+}
+
+.simulation-button {
+    border: none;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    border-radius: 8px;
+
+    padding: 9px 13px;
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+.live-sensor-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.live-card {
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    box-shadow: var(--shadow);
+
+    min-height: 320px;
+}
+
+.live-card-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.live-icon {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 10px;
+
+    background: #eef4ff;
+
+    color: var(--primary);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.temperature-card .live-icon {
+    background: var(--yellow-light);
+
+    color: var(--yellow);
+}
+
+.tension-card .live-icon {
+    background: var(--orange-light);
+
+    color: var(--orange);
+}
+
+.speed-card .live-icon {
+    background: var(--purple-light);
+
+    color: var(--purple);
+}
+
+.current-card .live-icon {
+    background: var(--red-light);
+
+    color: var(--red);
+}
+
+.material-card .live-icon {
+    background: var(--green-light);
+
+    color: var(--green);
+}
+
+.live-card-top > div:nth-child(2) {
+    flex: 1;
+}
+
+.live-card-top span {
+    font-size: 7px;
+
+    color: #9aa6b7;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.live-card-top h3 {
+    font-size: 14px;
+
+    margin-top: 3px;
+}
+
+.live-card-top p {
+    font-size: 8px;
+
+    color: var(--muted);
+
+    margin-top: 3px;
+}
+
+.live-status {
+    color: var(--green);
+
+    background: var(--green-light);
+
+    padding: 5px 7px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+
+    font-weight: 800;
+}
+
+.live-status span {
+    width: 5px;
+    height: 5px;
+
+    display: inline-block;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    margin-right: 4px;
+}
+
+.live-value {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 6px;
+
+    margin-top: 20px;
+}
+
+.live-value strong {
+    font-size: 35px;
+}
+
+.live-value span {
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+.wave-container {
+    height: 95px;
+
+    margin-top: 13px;
+
+    background: #f8fbff;
+
+    border-radius: 9px;
+
+    border: 1px solid #edf2f8;
+
+    overflow: hidden;
+}
+
+.wave-container canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.large-meter {
+    margin-top: 25px;
+}
+
+.meter-scale {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #9aa5b4;
+
+    font-size: 8px;
+
+    margin-bottom: 7px;
+}
+
+.meter-track {
+    height: 13px;
+
+    background: #edf1f5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.temperature-fill {
+    width: 48%;
+
+    height: 100%;
+
+    background: var(--yellow);
+
+    border-radius: 20px;
+}
+
+.sensor-details {
+    margin-top: 20px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #edf0f4;
+
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.sensor-details span {
+    display: block;
+
+    font-size: 8px;
+
+    color: #9aa6b6;
+}
+
+.sensor-details strong {
+    display: block;
+
+    font-size: 9px;
+
+    margin-top: 5px;
+}
+
+.circular-progress {
+    height: 110px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-top: 5px;
+}
+
+.tension-circle {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            var(--orange) 0deg 223deg,
+            #edf1f5 223deg 360deg
+        );
+
+    display: grid;
+
+    place-items: center;
+
+    position: relative;
+}
+
+.tension-circle::before {
+    content: "";
+
+    position: absolute;
+
+    width: 76px;
+    height: 76px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+.tension-circle > div {
+    position: relative;
+
+    text-align: center;
+}
+
+.tension-circle strong {
+    font-size: 22px;
+}
+
+.tension-circle span {
+    font-size: 9px;
+
+    color: var(--muted);
+}
+
+.speedometer {
+    height: 130px;
+
+    margin-top: 3px;
+
+    position: relative;
+}
+
+.speed-arc {
+    width: 180px;
+    height: 90px;
+
+    border-radius: 180px 180px 0 0;
+
+    border: 15px solid #edf1f5;
+
+    border-bottom: 0;
+
+    position: absolute;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 8px;
+}
+
+.speed-needle {
+    width: 3px;
+
+    height: 66px;
+
+    background: var(--purple);
+
+    position: absolute;
+
+    bottom: -3px;
+
+    left: 50%;
+
+    transform-origin: bottom center;
+
+    transform: rotate(48deg);
+
+    border-radius: 5px;
+}
+
+.needle-center {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: var(--purple);
+
+    position: absolute;
+
+    bottom: -6px;
+
+    left: calc(50% - 6px);
+}
+
+.speed-labels {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #929dae;
+
+    font-size: 8px;
+}
+
+.current-graph {
+    height: 115px;
+
+    margin-top: 12px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 6px;
+
+    padding: 10px;
+
+    border-radius: 9px;
+
+    background: #fff8f9;
+}
+
+.current-column {
+    flex: 1;
+
+    background: var(--red);
+
+    border-radius: 4px 4px 0 0;
+}
+
+.current-column:nth-child(1) { height: 35%; }
+.current-column:nth-child(2) { height: 48%; }
+.current-column:nth-child(3) { height: 42%; }
+.current-column:nth-child(4) { height: 65%; }
+.current-column:nth-child(5) { height: 54%; }
+.current-column:nth-child(6) { height: 75%; }
+.current-column:nth-child(7) { height: 60%; }
+.current-column:nth-child(8) { height: 80%; }
+.current-column:nth-child(9) { height: 65%; }
+.current-column:nth-child(10) { height: 73%; }
+.current-column:nth-child(11) { height: 68%; }
+.current-column:nth-child(12) { height: 77%; }
+
+.load-bars {
+    margin-top: 38px;
+}
+
+.load-track {
+    height: 18px;
+
+    background: #edf1f5;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.load-track div {
+    height: 100%;
+
+    background: var(--green);
+
+    border-radius: 20px;
+}
+
+.sensor-summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+.sensor-summary > div {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 13px 15px;
+}
+
+.sensor-summary span {
+    display: block;
+
+    color: #9aa6b5;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+.sensor-summary strong {
+    display: block;
+
+    font-size: 13px;
+
+    margin-top: 6px;
+}
+
+.green-text {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   AI VISION
+========================================================= */
+
+.vision-large {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 15px;
+}
+
+.camera-large,
+.damage-types {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+}
+
+.camera-large {
+    min-height: 450px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    background: #f9fbfd;
+
+    border-style: dashed;
+}
+
+.camera-icon.large {
+    width: 70px;
+    height: 70px;
+
+    font-size: 28px;
+}
+
+.camera-large h2 {
+    margin-top: 17px;
+
+    font-size: 20px;
+}
+
+.camera-large p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 7px;
+}
+
+.camera-large span {
+    margin-top: 18px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    color: #9ba6b6;
+
+    letter-spacing: 1px;
+}
+
+.damage-types {
+    padding: 22px;
+}
+
+.damage-types h3 {
+    font-size: 15px;
+
+    margin-bottom: 17px;
+}
+
+.damage-types div {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #edf0f4;
+
+    font-size: 10px;
+}
+
+.damage-types b {
+    color: #a1aaba;
+}
+
+
+/* =========================================================
+   PREDICTION
+========================================================= */
+
+.prediction-large {
+    display: grid;
+
+    grid-template-columns: 1fr 1.5fr;
+
+    gap: 15px;
+}
+
+.risk-card,
+.prediction-details {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    padding: 25px;
+}
+
+.risk-card {
+    text-align: center;
+}
+
+.risk-circle {
+    width: 170px;
+    height: 170px;
+
+    margin: 25px auto 15px;
+
+    border-radius: 50%;
+
+    border: 14px solid #e8f7ef;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.risk-circle strong {
+    font-size: 45px;
+}
+
+.risk-circle span {
+    color: var(--muted);
+
+    margin-left: 4px;
+}
+
+.risk-card h2 {
+    color: var(--green);
+
+    font-size: 17px;
+}
+
+.risk-card p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 7px;
+}
+
+.prediction-details h3 {
+    font-size: 16px;
+
+    margin-bottom: 12px;
+}
+
+.prediction-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+.prediction-row span {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.prediction-row strong {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ALARMS
+========================================================= */
+
+.empty-events {
+    background: #fff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    min-height: 420px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.empty-events > div {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 28px;
+}
+
+.empty-events h2 {
+    margin-top: 17px;
+
+    font-size: 18px;
+}
+
+.empty-events p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 6px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .dashboard-sensor-grid,
+    .live-sensor-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .health-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-lower {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 1100px) {
+
+    .digital-twin-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .twin-side-panel {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .brand {
+        padding: 12px;
+
+        justify-content: center;
+    }
+
+    .brand img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .brand div,
+    .sidebar-title,
+    .nav-item span:last-child,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .main {
+        width: calc(100% - 70px);
+
+        margin-left: 70px;
+    }
+
+    .topbar-right .system-status,
+    .topbar-right .operator {
+        display: none;
+    }
+
+    .topbar {
+        padding: 15px 20px;
+    }
+
+    .page {
+        padding: 22px 20px;
+    }
+
+    .vision-large,
+    .prediction-large {
+        grid-template-columns: 1fr;
+    }
+
+    .twin-side-panel {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .dashboard-sensor-grid,
+    .live-sensor-grid,
+    .sensor-summary,
+    .twin-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar h1 {
+        font-size: 17px;
+    }
+
+    .page-heading {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .health-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .mini-health {
+        flex-wrap: wrap;
+    }
+
+    .twin-side-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .conveyor-3d-container {
+        height: 430px;
+    }
+
+    .digital-twin-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+}
+/* =========================================================
+   5-SENSOR INDUSTRIAL LAYOUT
+   Dashboard + Live Sensors
+========================================================= */
+
+.dashboard-sensor-grid,
+.live-sensor-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr) minmax(220px, 1fr);
+    grid-template-areas:
+        "vibration tension speed"
+        "vibration current temperature";
+    align-items: stretch;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration,
+.live-sensor-grid .live-card.vibration-card {
+    grid-area: vibration;
+}
+
+.dashboard-sensor-grid .dash-sensor.tension,
+.live-sensor-grid .live-card.tension-card {
+    grid-area: tension;
+}
+
+.dashboard-sensor-grid .dash-sensor.speed,
+.live-sensor-grid .live-card.speed-card {
+    grid-area: speed;
+}
+
+.dashboard-sensor-grid .dash-sensor.current,
+.live-sensor-grid .live-card.current-card {
+    grid-area: current;
+}
+
+.dashboard-sensor-grid .dash-sensor.temperature,
+.live-sensor-grid .live-card.temperature-card {
+    grid-area: temperature;
+}
+
+/* Dashboard: large vibration card + compact parameter cards */
+.dashboard-sensor-grid .dash-sensor {
+    min-height: 205px;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration {
+    min-height: 424px;
+}
+
+/* Live Sensors: large vibration card + four detail cards */
+.live-sensor-grid .live-card {
+    min-height: 220px;
+}
+
+.live-sensor-grid .live-card.vibration-card {
+    min-height: 455px;
+}
+
+/* Keep the large vibration waveform visually prominent */
+.live-sensor-grid .vibration-card .wave-container {
+    min-height: 250px;
+}
+
+.live-sensor-grid .vibration-card .wave-container canvas {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-sensor-grid,
+    .live-sensor-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "vibration vibration"
+            "tension speed"
+            "current temperature";
+    }
+
+    .dashboard-sensor-grid .dash-sensor.vibration,
+    .live-sensor-grid .live-card.vibration-card {
+        min-height: 320px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-sensor-grid,
+    .live-sensor-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "vibration"
+            "tension"
+            "speed"
+            "current"
+            "temperature";
+    }
+
+    .dashboard-sensor-grid .dash-sensor.vibration,
+    .live-sensor-grid .live-card.vibration-card {
+        min-height: 300px;
+    }
+}
+
+
+/* DIGITAL TWIN PAGE FROM UPLOADED REFERENCE */
+
+/* =========================================================
+   ENHANCED 3D DIGITAL TWIN - CONVEYOR PAGE ONLY
+========================================================= */
+.conveyor-3d-panel {
+    overflow: hidden;
+}
+
+#conveyor3D {
+    width: 100%;
+    height: 560px;
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e1e7ec;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #fbfcfd 0%, #f1f5f8 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+#conveyor3D canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.digital-twin-toolbar {
+    position: relative;
+    z-index: 5;
+    margin-bottom: 10px;
+}
+
+.twin-controls button {
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.twin-controls button:hover,
+.twin-controls button.active {
+    background: #174a78 !important;
+    color: #fff !important;
+    border-color: #174a78 !important;
+}
+
+@media (max-width: 900px) {
+    #conveyor3D {
+        height: 480px;
+        min-height: 480px;
+    }
+}
+
+/* LIVE SENSOR REFERENCE PAGE ONLY */
+.demo-data-badge {
+    background: #fff8df;
+    color: #a87400;
+    border: 1px solid #f1e2b5;
+}
+.large-sensor h3 small {
+    font-size: 12px;
+    color: #8994a0;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LIVE SENSOR PAGE - REFERENCE LAYOUT
+========================================================= */
+.sensor-large-grid {
+    display:grid;
+    grid-template-columns:1.8fr 1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:14px;
+    min-height:455px;
+}
+.large-sensor {
+    background:#fff;
+    border:1px solid #e1e7ec;
+    border-radius:9px;
+    padding:18px;
+    box-shadow:0 3px 12px rgba(30,50,70,.07);
+    min-width:0;
+}
+.vibration-large { grid-row:1 / span 2; }
+.large-sensor-header {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+.large-sensor-header > div > span {
+    display:block; font-size:9px; font-weight:800; letter-spacing:1px; color:#7f8b96;
+}
+.large-sensor h3 { margin:8px 0 0; font-size:28px; color:#26323b; }
+.large-sensor h3 small { font-size:11px; color:#8994a0; font-weight:700; }
+.normal-pill {
+    font-size:8px; font-weight:800; color:#16824b; background:#eaf7ef;
+    padding:5px 8px; border-radius:4px; white-space:nowrap;
+}
+.large-wave {
+    height:310px; margin-top:22px; border:1px solid #edf1f4; border-radius:7px;
+    overflow:hidden; background:#fff;
+}
+.large-wave svg { width:100%; height:100%; display:block; }
+.large-grid line { stroke:#e9eef2; stroke-width:1; }
+.large-wave-line { fill:none; stroke:#4b86c5; stroke-width:3; vector-effect:non-scaling-stroke; }
+.large-note { margin-top:10px; display:flex; justify-content:space-between; color:#9aa4ad; font-size:8px; }
+.sensor-bar {
+    height:150px; margin-top:25px; background:#f3f5f7; border-radius:4px; overflow:hidden; position:relative;
+}
+.sensor-bar-fill { position:absolute; left:0; top:25px; height:75px; width:72%; background:#e99443; }
+.sensor-bar-label { position:absolute; top:49px; left:0; width:72%; text-align:center; color:#fff; font-weight:800; font-size:18px; }
+.sensor-card-caption { margin-top:12px; color:#8d98a2; font-size:9px; }
+.speed-ring {
+    width:150px; height:150px; border-radius:50%; margin:22px auto 14px;
+    background:conic-gradient(#7545c5 0 68%, #eee9f7 68% 100%);
+    display:flex; align-items:center; justify-content:center; position:relative;
+}
+.speed-ring:after { content:""; width:108px; height:108px; border-radius:50%; background:#fff; position:absolute; }
+.speed-ring-content { position:relative; z-index:1; text-align:center; font-weight:800; font-size:21px; color:#27313a; }
+.speed-ring-content small { display:block; font-size:8px; color:#8994a0; margin-top:2px; }
+.current-bar { height:18px; background:#f0f2f4; border-radius:3px; margin-top:27px; overflow:hidden; }
+.current-fill { height:100%; width:69%; background:#d94848; }
+.temp-wrap { height:150px; display:flex; align-items:center; justify-content:center; position:relative; margin-top:10px; }
+.temp-track { width:18px; height:110px; background:#edf0f2; border-radius:12px; position:relative; }
+.temp-fill { position:absolute; bottom:0; left:0; width:100%; height:55%; background:#e4a500; border-radius:12px; }
+.temp-bulb { position:absolute; bottom:-12px; left:50%; transform:translateX(-50%); width:38px; height:38px; border-radius:50%; background:#e4a500; }
+@media(max-width:1050px){ .sensor-large-grid{grid-template-columns:1fr 1fr;} .vibration-large{grid-column:1 / -1; grid-row:auto;} .large-wave{height:250px;} }
+@media(max-width:650px){ .sensor-large-grid{grid-template-columns:1fr;} }
+
+
+/* =========================================================
+   LIVE SENSOR UI REPAIR — MATCH REFERENCE CARD LAYOUT
+========================================================= */
+.sensor-large-grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1.85fr) minmax(250px,1fr) minmax(250px,1fr) !important;
+  grid-template-rows:minmax(230px,1fr) minmax(230px,1fr) !important;
+  gap:16px !important;
+  min-height:490px !important;
+  align-items:stretch !important;
+}
+.large-sensor{
+  position:relative;
+  box-sizing:border-box;
+  background:#fff !important;
+  border:1px solid #e3e8ed !important;
+  border-radius:10px !important;
+  padding:18px 18px 16px !important;
+  box-shadow:0 2px 10px rgba(27,48,67,.055) !important;
+  overflow:hidden;
+}
+.vibration-large{grid-column:1 !important;grid-row:1 / span 2 !important;}
+.tension-large{grid-column:2 !important;grid-row:1 !important;}
+.speed-large{grid-column:3 !important;grid-row:1 !important;}
+.current-large{grid-column:2 !important;grid-row:2 !important;}
+.temperature-large{grid-column:3 !important;grid-row:2 !important;}
+.large-sensor-header{min-height:48px !important;}
+.large-sensor-header > div > span{
+  font-size:9px !important; letter-spacing:1.1px !important; color:#7c8995 !important;
+}
+.large-sensor h3{
+  margin:7px 0 0 !important; font-size:29px !important; line-height:1 !important;
+  font-weight:750 !important; color:#26343f !important;
+}
+.large-sensor h3 small{font-size:11px !important;color:#87939e !important;font-weight:650 !important;}
+.normal-pill{
+  font-size:8px !important; line-height:1 !important; font-weight:800 !important;
+  color:#13834d !important; background:#e9f7ef !important; padding:6px 9px !important;
+  border-radius:4px !important; letter-spacing:.1px;
+}
+.large-wave{
+  height:330px !important; margin-top:18px !important; border:1px solid #edf1f4 !important;
+  border-radius:7px !important; background:#fff !important;
+}
+.large-sensor-footer{
+  display:flex !important; justify-content:space-between !important; gap:12px !important;
+  margin-top:8px !important; color:#9aa4ad !important; font-size:8px !important;
+}
+/* tension */
+.vertical-gauge{
+  height:132px !important; margin-top:16px !important; background:#f1f3f5 !important;
+  border-radius:3px !important; overflow:hidden !important; position:relative !important;
+}
+.vertical-fill{
+  position:absolute !important; left:0 !important; right:auto !important; top:24px !important;
+  height:76px !important; width:72% !important; background:#e99443 !important;
+}
+.vertical-value{
+  position:absolute !important; left:0 !important; top:48px !important; width:72% !important;
+  text-align:center !important; color:#fff !important; font-size:17px !important;
+  font-weight:800 !important; z-index:2 !important;
+}
+.tension-large p,.speed-large p,.current-large p,.temperature-large p{
+  margin:10px 0 0 !important; color:#8d98a2 !important; font-size:9px !important; line-height:1.45 !important;
+}
+/* speed */
+.speed-circle{
+  width:145px !important; height:145px !important; border-radius:50% !important;
+  margin:14px auto 8px !important; background:conic-gradient(#7545c5 0 68%,#eee9f7 68% 100%) !important;
+  display:flex !important; align-items:center !important; justify-content:center !important; position:relative !important;
+}
+.speed-circle:before{
+  content:"" !important; width:103px !important; height:103px !important; border-radius:50% !important;
+  background:#fff !important; position:absolute !important;
+}
+.speed-circle > div{position:relative !important;z-index:1 !important;text-align:center !important;}
+.speed-circle strong{display:block !important;font-size:20px !important;color:#27313a !important;line-height:1 !important;}
+.speed-circle small{display:block !important;font-size:8px !important;color:#8994a0 !important;margin-top:3px !important;}
+/* current */
+.current-meter{
+  height:18px !important; background:#f0f2f4 !important; border-radius:3px !important;
+  margin-top:28px !important; overflow:hidden !important;
+}
+.current-meter-fill{height:100% !important;width:69% !important;background:#d94848 !important;}
+.current-scale{
+  display:flex !important; justify-content:space-between !important; margin-top:5px !important;
+  color:#9aa4ad !important; font-size:8px !important;
+}
+/* temperature */
+.temperature-display{
+  height:145px !important; display:flex !important; align-items:center !important;
+  justify-content:center !important; position:relative !important; margin-top:4px !important;
+}
+.temperature-tube{
+  width:18px !important; height:105px !important; background:#edf0f2 !important;
+  border-radius:12px !important; position:relative !important;
+}
+.temperature-level{
+  position:absolute !important; bottom:0 !important; left:0 !important; width:100% !important;
+  height:55% !important; background:#e4a500 !important; border-radius:12px !important;
+}
+.temperature-bulb{
+  position:absolute !important; bottom:7px !important; width:38px !important; height:38px !important;
+  border-radius:50% !important; background:#e4a500 !important;
+}
+@media(max-width:1100px){
+  .sensor-large-grid{grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr) !important;grid-template-rows:auto !important;}
+  .vibration-large{grid-column:1 / -1 !important;grid-row:auto !important;}
+  .tension-large,.speed-large,.current-large,.temperature-large{grid-column:auto !important;grid-row:auto !important;}
+  .large-wave{height:270px !important;}
+}
+@media(max-width:700px){
+  .sensor-large-grid{grid-template-columns:1fr !important;}
+  .vibration-large,.tension-large,.speed-large,.current-large,.temperature-large{grid-column:1 !important;grid-row:auto !important;}
+}
+
+
+/* =========================================================
+   DIGITAL TWIN UI POLISH / LAYOUT FIX
+   Overrides only the Digital Twin page styles.
+========================================================= */
+#conveyor.active-page {
+    padding-top: 26px;
+}
+
+#conveyor .page-heading {
+    margin-bottom: 18px;
+    align-items: center;
+}
+
+#conveyor .page-heading h2 {
+    font-size: 22px;
+}
+
+#conveyor .conveyor-3d-panel {
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(32, 50, 80, 0.06);
+}
+
+#conveyor .conveyor-3d-panel > .panel-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+#conveyor .panel-header h3 {
+    margin-top: 2px;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+#conveyor .live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border: 1px solid #d9efe4;
+    border-radius: 999px;
+    background: #f2fbf6;
+    color: var(--green);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .4px;
+}
+
+#conveyor .live-indicator span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 4px rgba(22,163,106,.10);
+}
+
+#conveyor .digital-twin-toolbar {
+    min-height: 46px;
+    margin: 0;
+    padding: 10px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#conveyor .twin-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #445268;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#conveyor .twin-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 4px rgba(23,105,224,.10);
+}
+
+#conveyor .twin-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#conveyor .twin-controls button {
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid #dce4ed;
+    border-radius: 7px;
+    background: #fff;
+    color: #536174;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .6px;
+}
+
+#conveyor .twin-controls button:hover,
+#conveyor .twin-controls button.active {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+#conveyor3D {
+    height: 500px;
+    min-height: 500px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef3f7 100%);
+}
+
+#conveyor .digital-twin-status {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#conveyor .digital-twin-status > div {
+    min-height: 62px;
+    padding: 11px 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    border: 1px solid #e6ebf1;
+    border-radius: 10px;
+    background: #fbfcfe;
+}
+
+#conveyor .dt-label {
+    color: #8995a6;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#conveyor .digital-twin-status strong {
+    color: #26364b;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+#conveyor .digital-twin-status .dt-normal {
+    color: var(--green);
+}
+
+#conveyor .conveyor-equipment-grid {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#conveyor .equipment-status-panel,
+#conveyor .operating-panel {
+    padding: 18px;
+}
+
+#conveyor .equipment-list,
+#conveyor .parameter-list {
+    margin-top: 14px;
+}
+
+#conveyor .equipment-row {
+    min-height: 58px;
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 0;
+    border-bottom: 1px solid #edf1f5;
+}
+
+#conveyor .equipment-row:last-child,
+#conveyor .parameter-row:last-child {
+    border-bottom: 0;
+}
+
+#conveyor .equipment-icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: #edf4ff;
+    color: var(--primary);
+    font-size: 14px;
+}
+
+#conveyor .equipment-info strong {
+    display: block;
+    color: #26364b;
+    font-size: 11px;
+}
+
+#conveyor .equipment-info span {
+    display: block;
+    margin-top: 3px;
+    color: #8a96a6;
+    font-size: 9px;
+}
+
+#conveyor .equipment-normal {
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+#conveyor .parameter-row {
+    min-height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+#conveyor .parameter-row span {
+    color: #6f7d90;
+    font-size: 10px;
+}
+
+#conveyor .parameter-row strong {
+    color: #24344a;
+    font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+    #conveyor .digital-twin-status {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #conveyor .conveyor-equipment-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    #conveyor .digital-twin-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #conveyor .digital-twin-status {
+        grid-template-columns: 1fr;
+    }
+
+    #conveyor3D {
+        height: 390px;
+        min-height: 390px;
+    }
+}
+
+
+/* =========================================================
+   LIVE SENSOR VIBRATION CARD - FILL EMPTY SPACE
+   Keeps the large left card balanced with the two-row sensor grid.
+========================================================= */
+.live-sensor-grid .live-card.vibration-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 455px !important;
+}
+
+.live-sensor-grid .vibration-card .live-value {
+    flex: 0 0 auto !important;
+}
+
+.live-sensor-grid .vibration-card .wave-container {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 250px !important;
+    margin-top: 13px !important;
+}
+
+.live-sensor-grid .vibration-card .wave-container canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.live-sensor-grid .vibration-card .sensor-details {
+    flex: 0 0 auto !important;
+    margin-top: 16px !important;
+}
+
+@media (max-width: 1200px) {
+    .live-sensor-grid .vibration-card .wave-container {
+        min-height: 230px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .live-sensor-grid .vibration-card {
+        min-height: 430px !important;
+    }
+    .live-sensor-grid .vibration-card .wave-container {
+        min-height: 250px !important;
+    }
+}
+
+/* =========================================================
+   FINAL VIBRATION CARD FIX
+   Dashboard + Live Sensors
+========================================================= */
+
+/* Dashboard vibration card fills its two-row area cleanly. */
+.dashboard-sensor-grid .dash-sensor.vibration {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 424px !important;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration .big-value {
+    flex: 0 0 auto;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration .wave-small {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 145px !important;
+    margin-top: 14px !important;
+    margin-bottom: 4px !important;
+    border: 1px solid #edf1f6;
+    border-radius: 8px;
+    background: #fbfcfe;
+    overflow: hidden;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration .wave-small canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.dashboard-sensor-grid .dash-sensor.vibration .sensor-footer {
+    flex: 0 0 auto;
+    margin-top: 12px;
+}
+
+/* Live sensor vibration card uses the same responsive waveform behavior. */
+.live-sensor-grid .live-card.vibration-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 455px !important;
+}
+
+.live-sensor-grid .live-card.vibration-card .wave-container {
+    flex: 1 1 auto !important;
+    min-height: 235px !important;
+    height: auto !important;
+}
+
+.live-sensor-grid .live-card.vibration-card .wave-container canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Status colors update from the simulated sensor values. */
+.status-normal {
+    color: var(--green) !important;
+}
+
+.status-warning {
+    color: #d88900 !important;
+}
+
+.status-critical {
+    color: #d94b5b !important;
+}
+
+.live-status.status-normal {
+    background: #e9f8f1;
+    color: var(--green) !important;
+}
+
+.live-status.status-warning {
+    background: #fff4df;
+    color: #d88900 !important;
+}
+
+.live-status.status-critical {
+    background: #fff0f2;
+    color: #d94b5b !important;
+}
+
+.live-status.status-normal span,
+.live-status.status-warning span,
+.live-status.status-critical span {
+    background: currentColor;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-sensor-grid .dash-sensor.vibration {
+        min-height: 320px !important;
+    }
+
+    .dashboard-sensor-grid .dash-sensor.vibration .wave-small {
+        min-height: 120px !important;
+    }
+
+    .live-sensor-grid .live-card.vibration-card {
+        min-height: 455px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-sensor-grid .dash-sensor.vibration {
+        min-height: 300px !important;
+    }
+
+    .dashboard-sensor-grid .dash-sensor.vibration .wave-small {
+        min-height: 110px !important;
+    }
+
+    .live-sensor-grid .live-card.vibration-card {
+        min-height: 430px !important;
+    }
+
+    .live-sensor-grid .live-card.vibration-card .wave-container {
+        min-height: 220px !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL SITE-WIDE UI SCALE + FULL-PAGE FIT
+   Applies to Dashboard, Digital Twin, Live Sensors,
+   AI Vision, Prediction and Alarms & Events.
+========================================================= */
+
+.main {
+    min-height: 100vh;
+}
+
+.page.active-page {
+    min-height: calc(100vh - 92px);
+    padding-bottom: 32px;
+}
+
+/* Larger, more readable typography */
+.brand h2 { font-size: 21px !important; }
+.brand span { font-size: 9px !important; }
+
+.sidebar-title { font-size: 11px !important; }
+.nav-item { font-size: 15px !important; }
+.nav-icon { font-size: 17px !important; }
+
+.breadcrumb { font-size: 10px !important; }
+.topbar h1 { font-size: 24px !important; }
+.topbar p { font-size: 12px !important; }
+.system-status { font-size: 10px !important; }
+.clock { font-size: 14px !important; }
+.operator strong { font-size: 12px !important; }
+.operator span { font-size: 10px !important; }
+
+.page-heading { margin-bottom: 22px; }
+.eyebrow { font-size: 10px !important; }
+.page-heading h2 { font-size: 27px !important; }
+.page-heading p { font-size: 12px !important; }
+.running-badge { font-size: 10px !important; }
+
+.section-title h2 { font-size: 19px !important; }
+
+.panel-header h2 { font-size: 17px !important; }
+.card-top { font-size: 10px !important; }
+.card-status { font-size: 9px !important; }
+
+.sensor-label { font-size: 9px !important; }
+.sensor-head h3 { font-size: 15px !important; }
+.big-value span { font-size: 32px !important; }
+.big-value small,
+.big-value .unit { font-size: 13px !important; }
+
+.health-info h3 { font-size: 18px !important; }
+.health-info p { font-size: 11px !important; }
+.mini-health div span { font-size: 9px !important; }
+.mini-health strong { font-size: 13px !important; }
+
+.asset-status-title h3 { font-size: 18px !important; }
+.asset-status-title p { font-size: 10px !important; }
+.asset-data-row span { font-size: 10px !important; }
+.asset-data-row strong { font-size: 12px !important; }
+
+.sensor-controls strong { font-size: 13px !important; }
+.sensor-controls span { font-size: 10px !important; }
+.simulation-status { font-size: 10px !important; }
+.simulation-button { font-size: 10px !important; }
+
+.live-card-top span { font-size: 8px !important; }
+.live-card-top h3 { font-size: 16px !important; }
+.live-card-top p { font-size: 9px !important; }
+.live-status { font-size: 8px !important; }
+.live-value strong { font-size: 38px !important; }
+.live-value span { font-size: 12px !important; }
+
+.meter-scale,
+.speed-labels { font-size: 9px !important; }
+
+.camera-large h2 { font-size: 22px !important; }
+.camera-large p { font-size: 12px !important; }
+.camera-large span { font-size: 9px !important; }
+.damage-types h3 { font-size: 17px !important; }
+.damage-types div { font-size: 11px !important; }
+
+.risk-card,
+.prediction-details { min-height: 360px; }
+.risk-circle strong { font-size: 50px !important; }
+.risk-card h2 { font-size: 19px !important; }
+.risk-card p { font-size: 11px !important; }
+.prediction-details h3 { font-size: 18px !important; }
+.prediction-row span { font-size: 11px !important; }
+.prediction-row strong { font-size: 12px !important; }
+
+.empty-events {
+    min-height: calc(100vh - 315px);
+}
+.empty-events h2 { font-size: 20px !important; }
+.empty-events p { font-size: 11px !important; }
+
+.sensor-summary span { font-size: 9px !important; }
+.sensor-summary strong { font-size: 14px !important; }
+
+/* Dashboard vibration: use the card height efficiently */
+.dashboard-sensor-grid {
+    grid-auto-rows: minmax(205px, auto);
+}
+.dashboard-sensor-grid .dash-sensor.vibration {
+    min-height: 424px !important;
+}
+.dashboard-sensor-grid .dash-sensor.vibration .wave-small {
+    min-height: 190px !important;
+}
+.dashboard-sensor-grid .dash-sensor.vibration .sensor-footer {
+    font-size: 10px !important;
+}
+
+/* Live Sensors vibration */
+.live-sensor-grid .live-card.vibration-card {
+    min-height: 455px !important;
+}
+.live-sensor-grid .live-card.vibration-card .wave-container {
+    min-height: 260px !important;
+}
+
+/* AI Vision fills the usable page */
+.vision-large {
+    min-height: calc(100vh - 300px);
+}
+.camera-large,
+.damage-types {
+    min-height: calc(100vh - 300px);
+}
+
+/* Prediction fills the usable page without excessive blank lower area */
+.prediction-large {
+    min-height: calc(100vh - 300px);
+}
+.risk-card,
+.prediction-details {
+    min-height: calc(100vh - 300px);
+}
+
+/* Digital Twin sizing stays responsive */
+.conveyor-3d-panel {
+    width: 100%;
+}
+#conveyor3D {
+    min-height: 500px;
+}
+
+/* Keep the layout usable on smaller screens */
+@media (max-width: 1200px) {
+    .page-heading h2 { font-size: 25px !important; }
+
+    .vision-large,
+    .prediction-large,
+    .camera-large,
+    .damage-types,
+    .risk-card,
+    .prediction-details {
+        min-height: 0;
+    }
+
+    .camera-large,
+    .damage-types {
+        min-height: 430px;
+    }
+
+    .risk-card,
+    .prediction-details {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 850px) {
+    .nav-item { font-size: 14px !important; }
+    .topbar h1 { font-size: 21px !important; }
+    .page-heading h2 { font-size: 23px !important; }
+
+    .page.active-page {
+        min-height: calc(100vh - 82px);
+    }
+}
+
+@media (max-width: 600px) {
+    .page {
+        padding: 20px 16px 30px !important;
+    }
+
+    .page-heading h2 { font-size: 21px !important; }
+    .page-heading p { font-size: 11px !important; }
+
+    .dashboard-sensor-grid .dash-sensor.vibration {
+        min-height: 340px !important;
+    }
+
+    .dashboard-sensor-grid .dash-sensor.vibration .wave-small {
+        min-height: 140px !important;
+    }
+
+    .live-sensor-grid .live-card.vibration-card {
+        min-height: 430px !important;
+    }
+
+    .live-sensor-grid .live-card.vibration-card .wave-container {
+        min-height: 220px !important;
+    }
+
+    .camera-large,
+    .damage-types {
+        min-height: 360px;
+    }
+}
+

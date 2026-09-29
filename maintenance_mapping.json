@@ -1,0 +1,187 @@
+{
+    "fault_to_component": {
+        "belt slippage": "Belting",
+        "ball bearing": "Top Rollers",
+        "central shaft": "Drive Drum",
+        "drive motor": "Motor",
+        "idler roller fault": "Bottom Rollers",
+        "pulley": "Drive Drum"
+    },
+    "fault_to_maintenance": {
+        "belt slippage": "Inspect belt tension, alignment, and belt condition.",
+        "ball bearing": "Inspect roller bearings, lubrication, and abnormal noise.",
+        "central shaft": "Inspect shaft alignment, coupling, and mechanical wear.",
+        "drive motor": "Inspect motor temperature, current draw, bearings, and electrical condition.",
+        "idler roller fault": "Inspect idler rollers for wear, blockage, and abnormal vibration.",
+        "pulley": "Inspect pulley alignment, surface condition, bearings, and belt contact."
+    },
+    "component_reliability": [
+        {
+            "Component": "Bracket",
+            "TBF (hrs)": 540,
+            "MTTF (hrs, \u03b2=2)": 479
+        },
+        {
+            "Component": "Top Rollers",
+            "TBF (hrs)": 540,
+            "MTTF (hrs, \u03b2=2)": 479
+        },
+        {
+            "Component": "Bottom Rollers",
+            "TBF (hrs)": 810,
+            "MTTF (hrs, \u03b2=2)": 717
+        },
+        {
+            "Component": "Belting",
+            "TBF (hrs)": 810,
+            "MTTF (hrs, \u03b2=2)": 717
+        },
+        {
+            "Component": "Couplings",
+            "TBF (hrs)": 1080,
+            "MTTF (hrs, \u03b2=2)": 957
+        },
+        {
+            "Component": "Stool",
+            "TBF (hrs)": 3240,
+            "MTTF (hrs, \u03b2=2)": 2873
+        },
+        {
+            "Component": "Drive Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727
+        },
+        {
+            "Component": "Motor",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727
+        },
+        {
+            "Component": "Tail end Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727
+        },
+        {
+            "Component": "Driven Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727
+        },
+        {
+            "Component": "Loop Take up Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727
+        },
+        {
+            "Component": "Gear Box",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639
+        },
+        {
+            "Component": "Discharge Drums",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639
+        },
+        {
+            "Component": "Fixed Drum",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639
+        },
+        {
+            "Component": "Equalizing Gears",
+            "TBF (hrs)": 16425,
+            "MTTF (hrs, \u03b2=2)": 14555
+        }
+    ],
+    "maintenance_priority": [
+        {
+            "Component": "Bracket",
+            "TBF (hrs)": 540,
+            "MTTF (hrs, \u03b2=2)": 479,
+            "Maintenance Priority": "HIGH"
+        },
+        {
+            "Component": "Top Rollers",
+            "TBF (hrs)": 540,
+            "MTTF (hrs, \u03b2=2)": 479,
+            "Maintenance Priority": "HIGH"
+        },
+        {
+            "Component": "Bottom Rollers",
+            "TBF (hrs)": 810,
+            "MTTF (hrs, \u03b2=2)": 717,
+            "Maintenance Priority": "MEDIUM"
+        },
+        {
+            "Component": "Belting",
+            "TBF (hrs)": 810,
+            "MTTF (hrs, \u03b2=2)": 717,
+            "Maintenance Priority": "MEDIUM"
+        },
+        {
+            "Component": "Couplings",
+            "TBF (hrs)": 1080,
+            "MTTF (hrs, \u03b2=2)": 957,
+            "Maintenance Priority": "MEDIUM"
+        },
+        {
+            "Component": "Stool",
+            "TBF (hrs)": 3240,
+            "MTTF (hrs, \u03b2=2)": 2873,
+            "Maintenance Priority": "LOW"
+        },
+        {
+            "Component": "Drive Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Motor",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Tail end Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Driven Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Loop Take up Drum",
+            "TBF (hrs)": 9855,
+            "MTTF (hrs, \u03b2=2)": 8727,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Gear Box",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Discharge Drums",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Fixed Drum",
+            "TBF (hrs)": 13140,
+            "MTTF (hrs, \u03b2=2)": 11639,
+            "Maintenance Priority": "ROUTINE"
+        },
+        {
+            "Component": "Equalizing Gears",
+            "TBF (hrs)": 16425,
+            "MTTF (hrs, \u03b2=2)": 14555,
+            "Maintenance Priority": "ROUTINE"
+        }
+    ]
+}

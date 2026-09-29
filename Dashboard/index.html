@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>codeNcore | Conveyor Health Monitoring</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- THREE.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+    <!-- ORBIT CONTROLS -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img src="logo.png" alt="codeNcore Logo">
+
+            <div>
+                <h2>CoreBelt AI</h2>
+                <span>SMART AUTOMATION</span>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-title">
+            MONITORING
+        </div>
+
+
+        <nav>
+
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="conveyor">
+                <span class="nav-icon">⚙</span>
+                <span>Conveyor</span>
+            </button>
+
+            <button class="nav-item" data-page="sensors">
+                <span class="nav-icon">⌁</span>
+                <span>Live Sensors</span>
+            </button>
+
+            <button class="nav-item" data-page="vision">
+                <span class="nav-icon">▣</span>
+                <span>AI Vision</span>
+            </button>
+
+            <button class="nav-item" data-page="prediction">
+                <span class="nav-icon">◉</span>
+                <span>Prediction</span>
+            </button>
+
+            <button class="nav-item" data-page="alarms">
+                <span class="nav-icon">⚠</span>
+                <span>Alarms & Events</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-box">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>Monitoring active</small>
+                </div>
+
+            </div>
+
+            <div class="version">
+                codeNcore v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    CONTROL ROOM /
+                    <span id="breadcrumbPage">DASHBOARD</span>
+                </div>
+
+                <h1 id="pageTitle">
+                    Conveyor Health Overview
+                </h1>
+
+                <p id="pageSubtitle">
+                    Intelligent Conveyor Belt Health Monitoring System
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="system-status">
+                    <span class="green-dot"></span>
+                    SYSTEM ONLINE
+                </div>
+
+                <div class="clock" id="clock">
+                    --:--:--
+                </div>
+
+                <div class="operator">
+
+                    <div class="operator-avatar">
+                        OP
+                    </div>
+
+                    <div>
+                        <strong>Operator</strong>
+                        <span>Control Room</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             DASHBOARD
+        ====================================================== -->
+
+        <section class="page active-page" id="dashboard">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        CONVEYOR LINE 01
+                    </span>
+
+                    <h2>
+                        Real-Time Asset Overview
+                    </h2>
+
+                    <p>
+                        Intelligent monitoring of conveyor belt condition,
+                        sensors and predictive maintenance indicators.
+                    </p>
+
+                </div>
+
+                <div class="running-badge">
+                    <span></span>
+                    RUNNING
+                </div>
+
+            </div>
+
+
+            <!-- HEALTH -->
+
+            <div class="health-grid">
+
+                <div class="health-card main-health">
+
+                    <div class="card-top">
+
+                        <span>
+                            OVERALL HEALTH
+                        </span>
+
+                        <span class="card-status">
+                            NORMAL
+                        </span>
+
+                    </div>
+
+
+                    <div class="health-content">
+
+                        <div class="health-ring">
+
+                            <div>
+
+                                <strong id="healthValue">
+                                    94
+                                </strong>
+
+                                <small>
+                                    %
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="health-info">
+
+                            <h3>
+                                Conveyor condition is stable
+                            </h3>
+
+                            <p>
+                                All monitored parameters are currently
+                                within the normal operating range.
+                            </p>
+
+
+                            <div class="mini-health">
+
+                                <div>
+                                    <span>Vibration</span>
+
+                                    <strong id="dashVibration">
+                                        0.42 g
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Temperature</span>
+
+                                    <strong id="dashTemperature">
+                                        48°C
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Belt Speed</span>
+
+                                    <strong id="dashSpeed">
+                                        3.2 m/s
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-card">
+
+                    <div class="card-top">
+
+                        <span>
+                            PREDICTIVE STATUS
+                        </span>
+
+                        <span class="prediction-dot"></span>
+
+                    </div>
+
+
+                    <div class="prediction-main">
+
+                        <div class="prediction-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <h3 id="predictionStatus">
+                                NORMAL
+                            </h3>
+
+                            <p>
+                                Low probability of immediate conveyor failure.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="prediction-score">
+
+                        <div class="score-head">
+
+                            <span>
+                                Health confidence
+                            </span>
+
+                            <strong id="confidenceValue">
+                                96%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                id="confidenceBar"
+                                style="width:96%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SENSOR OVERVIEW -->
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="eyebrow">
+                        LIVE PARAMETERS
+                    </span>
+
+                    <h2>
+                        Sensor Overview
+                    </h2>
+
+                </div>
+
+                <button
+                    class="outline-button"
+                    onclick="openPage('sensors')">
+
+                    View Live Sensors →
+
+                </button>
+
+            </div>
+
+
+            <div class="dashboard-sensor-grid">
+
+
+                <!-- VIBRATION -->
+
+                <div class="dash-sensor vibration">
+
+                    <div class="sensor-head">
+
+                        <div>
+
+                            <span class="sensor-label">
+                                ADXL345
+                            </span>
+
+                            <h3>
+                                Vibration
+                            </h3>
+
+                        </div>
+
+                        <div class="sensor-circle">
+                            A
+                        </div>
+
+                    </div>
+
+
+                    <div class="big-value">
+
+                        <span id="overviewVibration">
+                            0.42
+                        </span>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+                    <div class="wave-small">
+                        <canvas id="overviewWave"></canvas>
+                    </div>
+
+
+                    <div class="sensor-footer">
+
+                        <span>
+                            Accelerometer
+                        </span>
+
+                        <b class="normal-text" id="dashVibrationStatus">
+                            NORMAL
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TEMPERATURE -->
+
+                <div class="dash-sensor temperature">
+
+                    <div class="sensor-head">
+
+                        <div>
+
+                            <span class="sensor-label">
+                                TEMP
+                            </span>
+
+                            <h3>
+                                Temperature
+                            </h3>
+
+                        </div>
+
+                        <div class="sensor-circle">
+                            °C
+                        </div>
+
+                    </div>
+
+
+                    <div class="big-value">
+
+                        <span id="overviewTemperature">
+                            48
+                        </span>
+
+                        <small>
+                            °C
+                        </small>
+
+                    </div>
+
+
+                    <div class="temperature-meter">
+
+                        <div
+                            class="meter-fill"
+                            id="tempMeter">
+                        </div>
+
+                    </div>
+
+
+                    <div class="sensor-footer">
+
+                        <span>
+                            Motor / Bearing
+                        </span>
+
+                        <b class="normal-text" id="dashTemperatureStatus">
+                            NORMAL
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TENSION -->
+
+                <div class="dash-sensor tension">
+
+                    <div class="sensor-head">
+
+                        <div>
+
+                            <span class="sensor-label">
+                                LOAD
+                            </span>
+
+                            <h3>
+                                Belt Tension
+                            </h3>
+
+                        </div>
+
+                        <div class="sensor-circle">
+                            %
+                        </div>
+
+                    </div>
+
+
+                    <div class="big-value">
+
+                        <span id="overviewTension">
+                            62
+                        </span>
+
+                        <small>
+                            %
+                        </small>
+
+                    </div>
+
+
+                    <div class="line-meter">
+
+                        <div
+                            id="tensionMeter"
+                            style="width:62%">
+                        </div>
+
+                    </div>
+
+
+                    <div class="sensor-footer">
+
+                        <span>
+                            Belt Load
+                        </span>
+
+                        <b class="normal-text" id="dashTensionStatus">
+                            NORMAL
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPEED -->
+
+                <div class="dash-sensor speed">
+
+                    <div class="sensor-head">
+
+                        <div>
+
+                            <span class="sensor-label">
+                                RPM / SPEED
+                            </span>
+
+                            <h3>
+                                Belt Speed
+                            </h3>
+
+                        </div>
+
+                        <div class="sensor-circle">
+                            S
+                        </div>
+
+                    </div>
+
+
+                    <div class="big-value">
+
+                        <span id="overviewSpeed">
+                            3.2
+                        </span>
+
+                        <small>
+                            m/s
+                        </small>
+
+                    </div>
+
+
+                    <div class="speed-scale">
+
+                        <span>0</span>
+
+                        <div class="speed-track">
+
+                            <div
+                                id="speedMeter"
+                                style="width:64%">
+                            </div>
+
+                        </div>
+
+                        <span>5</span>
+
+                    </div>
+
+
+                    <div class="sensor-footer">
+
+                        <span>
+                            Conveyor Velocity
+                        </span>
+
+                        <b class="normal-text" id="dashSpeedStatus">
+                            NORMAL
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MOTOR CURRENT -->
+
+                <div class="dash-sensor current">
+
+                    <div class="sensor-head">
+
+                        <div>
+
+                            <span class="sensor-label">
+                                MOTOR
+                            </span>
+
+                            <h3>
+                                Motor Current
+                            </h3>
+
+                        </div>
+
+                        <div class="sensor-circle">
+                            A
+                        </div>
+
+                    </div>
+
+
+                    <div class="big-value">
+
+                        <span id="overviewCurrent">
+                            8.4
+                        </span>
+
+                        <small>
+                            A
+                        </small>
+
+                    </div>
+
+
+                    <div class="current-bars">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="sensor-footer">
+
+                        <span>
+                            Drive Motor
+                        </span>
+
+                        <b class="normal-text" id="dashCurrentStatus">
+                            NORMAL
+                        </b>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             3D CONVEYOR DIGITAL TWIN
+        ====================================================== -->
+
+<section class="page" id="conveyor">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        CONVEYOR LINE 01
+                    </span>
+
+                    <h2>
+                        Digital Twin & Conveyor Monitoring
+                    </h2>
+
+                    <p>
+                        Interactive 3D representation of the physical
+                        conveyor system for real-time monitoring.
+                    </p>
+
+                </div>
+
+                <div class="running-badge">
+
+                    <span></span>
+                    RUNNING
+
+                </div>
+
+            </div>
+
+
+            <!-- 3D DIGITAL TWIN -->
+
+            <div class="panel conveyor-3d-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            DIGITAL TWIN
+                        </span>
+
+                        <h3>
+                            3D Conveyor System
+                        </h3>
+
+                    </div>
+
+                    <div class="live-indicator">
+
+                        <span></span>
+                        LIVE
+
+                    </div>
+
+                </div>
+
+
+                <div class="digital-twin-toolbar">
+
+                    <div class="twin-title">
+
+                        <span class="twin-dot"></span>
+
+                        <span>
+                            CONVEYOR LINE 01
+                        </span>
+
+                    </div>
+
+                    <div class="twin-controls">
+
+                        <button id="reset3D">
+                            RESET VIEW
+                        </button>
+
+                        <button id="rotate3D">
+                            AUTO ROTATE
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="conveyor3D">
+
+                    <div class="three-loading">
+                        Loading Digital Twin...
+                    </div>
+
+                </div>
+
+
+                <div class="digital-twin-status">
+
+                    <div>
+
+                        <span class="dt-label">
+                            CONVEYOR STATUS
+                        </span>
+
+                        <strong class="dt-normal">
+                            RUNNING
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span class="dt-label">
+                            BELT SPEED
+                        </span>
+
+                        <strong id="dtSpeed">
+                            2.65 m/s
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span class="dt-label">
+                            BELT HEALTH
+                        </span>
+
+                        <strong id="dtHealth">
+                            94%
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span class="dt-label">
+                            MOTOR
+                        </span>
+
+                        <strong class="dt-normal">
+                            NORMAL
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUIPMENT STATUS -->
+
+            <div class="conveyor-equipment-grid">
+
+                <div class="panel equipment-status-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                EQUIPMENT
+                            </span>
+
+                            <h3>
+                                Component Status
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="equipment-list">
+
+                        <div class="equipment-row">
+
+                            <div class="equipment-icon">
+                                ⚙
+                            </div>
+
+                            <div class="equipment-info">
+
+                                <strong>
+                                    Drive Motor
+                                </strong>
+
+                                <span>
+                                    Motor current: 13.8 A
+                                </span>
+
+                            </div>
+
+                            <span class="equipment-normal">
+                                NORMAL
+                            </span>
+
+                        </div>
+
+
+                        <div class="equipment-row">
+
+                            <div class="equipment-icon">
+                                ◉
+                            </div>
+
+                            <div class="equipment-info">
+
+                                <strong>
+                                    Drive Pulley
+                                </strong>
+
+                                <span>
+                                    Rotation stable
+                                </span>
+
+                            </div>
+
+                            <span class="equipment-normal">
+                                NORMAL
+                            </span>
+
+                        </div>
+
+
+                        <div class="equipment-row">
+
+                            <div class="equipment-icon">
+                                ◉
+                            </div>
+
+                            <div class="equipment-info">
+
+                                <strong>
+                                    Tail Pulley
+                                </strong>
+
+                                <span>
+                                    Alignment normal
+                                </span>
+
+                            </div>
+
+                            <span class="equipment-normal">
+                                NORMAL
+                            </span>
+
+                        </div>
+
+
+                        <div class="equipment-row">
+
+                            <div class="equipment-icon">
+                                ≋
+                            </div>
+
+                            <div class="equipment-info">
+
+                                <strong>
+                                    Conveyor Belt
+                                </strong>
+
+                                <span>
+                                    Health condition: 94%
+                                </span>
+
+                            </div>
+
+                            <span class="equipment-normal">
+                                HEALTHY
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPERATING PARAMETERS -->
+
+                <div class="panel operating-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                OPERATING PARAMETERS
+                            </span>
+
+                            <h3>
+                                Current Values
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="parameter-list">
+
+                        <div class="parameter-row">
+
+                            <span>
+                                Belt Speed
+                            </span>
+
+                            <strong>
+                                2.65 m/s
+                            </strong>
+
+                        </div>
+
+                        <div class="parameter-row">
+
+                            <span>
+                                Belt Tension
+                            </span>
+
+                            <strong>
+                                72.4 kN
+                            </strong>
+
+                        </div>
+
+                        <div class="parameter-row">
+
+                            <span>
+                                Vibration
+                            </span>
+
+                            <strong>
+                                4.82 mm/s
+                            </strong>
+
+                        </div>
+
+                        <div class="parameter-row">
+
+                            <span>
+                                Temperature
+                            </span>
+
+                            <strong>
+                                42.6 °C
+                            </strong>
+
+                        </div>
+
+        <div class="parameter-row">
+
+                            <span>
+                                Motor Current
+                            </span>
+
+                            <strong>
+                                13.8 A
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             LIVE SENSORS
+        ====================================================== -->
+
+        <section class="page" id="sensors">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SENSOR NETWORK
+                    </span>
+
+                    <h2>
+                        Live Sensor Monitoring
+                    </h2>
+
+                    <p>
+                        Simulated real-time conveyor equipment parameters
+                        for prototype demonstration.
+                    </p>
+
+                </div>
+
+
+                <div class="simulation-status">
+
+                    <span id="simulationDot"></span>
+
+                    <span id="simulationText">
+                        SIMULATION RUNNING
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="sensor-controls">
+
+                <div>
+
+                    <strong>
+                        Prototype Sensor Simulation
+                    </strong>
+
+                    <span>
+                        Static values with automatic variation
+                    </span>
+
+                </div>
+
+                <button
+                    class="simulation-button"
+                    id="simulationToggle">
+
+                    Pause Simulation
+
+                </button>
+
+            </div>
+
+
+            <div class="live-sensor-grid">
+
+
+                <!-- ADXL345 -->
+
+                <div class="live-card vibration-card">
+
+                    <div class="live-card-top">
+
+                        <div class="live-icon">
+                            A
+                        </div>
+
+                        <div>
+
+                            <span>SENSOR 01</span>
+
+                            <h3>
+                                ADXL345
+                            </h3>
+
+                            <p>
+                                Accelerometer / Vibration
+                            </p>
+
+                        </div>
+
+                        <div class="live-status" id="sensorVibrationStatus">
+                            <span></span>
+                            NORMAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="live-value">
+
+                        <strong id="sensorVibration">
+                            0.42
+                        </strong>
+
+                        <span>
+                            g
+                        </span>
+
+                    </div>
+
+
+                    <div class="wave-container">
+
+                        <canvas id="vibrationWave"></canvas>
+
+                    </div>
+
+
+                    <div class="sensor-details">
+
+                        <div>
+
+                            <span>
+                                Normal Range
+                            </span>
+
+                            <strong>
+                                0.0 – 0.80 g
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Interface
+                            </span>
+
+                            <strong>
+                                I²C
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TEMPERATURE -->
+
+                <div class="live-card temperature-card">
+
+                    <div class="live-card-top">
+
+                        <div class="live-icon">
+                            °C
+                        </div>
+
+                        <div>
+
+                            <span>SENSOR 02</span>
+
+                            <h3>
+                                Temperature
+                            </h3>
+
+                            <p>
+                                Motor / Bearing
+                            </p>
+
+                        </div>
+
+                        <div class="live-status" id="sensorTemperatureStatus">
+                            <span></span>
+                            NORMAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="live-value">
+
+                        <strong id="sensorTemperature">
+                            48
+                        </strong>
+
+                        <span>
+                            °C
+                        </span>
+
+                    </div>
+
+
+                    <div class="large-meter">
+
+                        <div class="meter-scale">
+
+                            <span>0</span>
+                            <span>40</span>
+                            <span>60</span>
+                            <span>80</span>
+                            <span>100</span>
+
+                        </div>
+
+
+                        <div class="meter-track">
+
+                            <div
+                                class="temperature-fill"
+                                id="temperatureFill">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sensor-details">
+
+                        <div>
+
+                            <span>
+                                Normal
+                            </span>
+
+                            <strong>
+                                &lt; 65°C
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Current
+                            </span>
+
+                            <strong id="tempDetail">
+                                48°C
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TENSION -->
+
+                <div class="live-card tension-card">
+
+                    <div class="live-card-top">
+
+                        <div class="live-icon">
+                            T
+                        </div>
+
+                        <div>
+
+                            <span>SENSOR 03</span>
+
+                            <h3>
+                                Belt Tension
+                            </h3>
+
+                            <p>
+                                Belt tension monitoring
+                            </p>
+
+                        </div>
+
+                        <div class="live-status" id="sensorTensionStatus">
+                            <span></span>
+                            NORMAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="live-value">
+
+                        <strong id="sensorTension">
+                            62
+                        </strong>
+
+                        <span>
+                            %
+                        </span>
+
+                    </div>
+
+
+                    <div class="circular-progress">
+
+                        <div
+                            class="tension-circle"
+                            id="tensionCircle">
+
+                            <div>
+
+                                <strong id="tensionCircleValue">
+                                    62
+                                </strong>
+
+                                <span>%</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sensor-details">
+
+                        <div>
+
+                            <span>
+                                Normal
+                            </span>
+
+                            <strong>
+                                30 – 85%
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Condition
+                            </span>
+
+                            <strong>
+                                Stable
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPEED -->
+
+                <div class="live-card speed-card">
+
+                    <div class="live-card-top">
+
+                        <div class="live-icon">
+                            S
+                        </div>
+
+                        <div>
+
+                            <span>SENSOR 04</span>
+
+                            <h3>
+                                Belt Speed
+                            </h3>
+
+                            <p>
+                                Conveyor velocity
+                            </p>
+
+                        </div>
+
+                        <div class="live-status" id="sensorSpeedStatus">
+                            <span></span>
+                            NORMAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="live-value">
+
+                        <strong id="sensorSpeed">
+                            3.2
+                        </strong>
+
+                        <span>
+                            m/s
+                        </span>
+
+                    </div>
+
+
+                    <div class="speedometer">
+
+                        <div class="speed-arc">
+
+                            <div
+                                class="speed-needle"
+                                id="speedNeedle">
+                            </div>
+
+                            <div class="needle-center"></div>
+
+                        </div>
+
+
+                        <div class="speed-labels">
+
+                            <span>0</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sensor-details">
+
+                        <div>
+
+                            <span>
+                                Operating Range
+                            </span>
+
+                            <strong>
+                                2 – 4 m/s
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Current
+                            </span>
+
+                            <strong id="speedDetail">
+                                3.2 m/s
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CURRENT -->
+
+                <div class="live-card current-card">
+
+                    <div class="live-card-top">
+
+                        <div class="live-icon">
+                            A
+                        </div>
+
+                        <div>
+
+                            <span>SENSOR 05</span>
+
+                            <h3>
+                                Motor Current
+                            </h3>
+
+                            <p>
+                                Drive motor current
+                            </p>
+
+                        </div>
+
+                        <div class="live-status" id="sensorCurrentStatus">
+                            <span></span>
+                            NORMAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="live-value">
+
+                        <strong id="sensorCurrent">
+                            8.4
+                        </strong>
+
+                        <span>
+                            A
+                        </span>
+
+                    </div>
+
+
+                    <div class="current-graph">
+
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+                        <div class="current-column"></div>
+
+                    </div>
+
+
+                    <div class="sensor-details">
+
+                        <div>
+
+                            <span>
+                                Normal
+                            </span>
+
+                            <strong>
+                                &lt; 12 A
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Motor
+                            </span>
+
+                            <strong>
+                                RUNNING
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="sensor-summary">
+
+                <div>
+
+                    <span>
+                        CONNECTED SENSORS
+                    </span>
+
+                    <strong>
+                        5
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        SYSTEM STATUS
+                    </span>
+
+                    <strong class="green-text">
+                        NORMAL
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        UPDATE INTERVAL
+                    </span>
+
+                    <strong>
+                        2 SEC
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DATA MODE
+                    </span>
+
+                    <strong>
+                        SIMULATION
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             AI VISION
+        ====================================================== -->
+
+        <section class="page" id="vision">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        COMPUTER VISION
+                    </span>
+
+                    <h2>
+                        AI Vision
+                    </h2>
+
+                    <p>
+                        YOLO-based conveyor belt damage detection.
+                    </p>
+
+                </div>
+
+            </div>
+  
+      <!-- LIVE CAMERA FEED -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+            <div>
+                <span class="eyebrow">LIVE CAMERA</span>
+                <h3>Conveyor Belt Camera</h3>
+            </div>
+
+            <span class="connection-badge">
+                ● LIVE
+            </span>
+
+        </div>
+
+        
+
+    </div>
+      
+           <div class="camera-large">
+    <img
+        src="http://127.0.0.1:5001/video_feed"
+        width="980"
+        alt="Live Conveyor Camera Feed"
+        class="live-camera-feed"
+    >
+</div> 
+
+
+                <div class="damage-types">
+
+                    <h3>
+                        Detectable Conditions
+                    </h3>
+
+                    <div>
+                        <span>Normal Belt</span>
+                        <b>—</b>
+                    </div>
+
+                    <div>
+                        <span>Cracks</span>
+                        <b>—</b>
+                    </div>
+
+                    <div>
+                        <span>Tears</span>
+                        <b>—</b>
+                    </div>
+
+                    <div>
+                        <span>Joint Damage</span>
+                        <b>—</b>
+                    </div>
+
+                    <div>
+                        <span>Edge Damage</span>
+                        <b>—</b>
+                    </div>
+
+                    <div>
+                        <span>Holes / Punctures</span>
+                        <b>—</b>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PREDICTION
+        ====================================================== -->
+
+        <section class="page" id="prediction">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        MACHINE LEARNING
+                    </span>
+
+                    <h2>
+                        Predictive Maintenance
+                    </h2>
+
+                    <p>
+                        Conveyor health and failure prediction.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="prediction-large">
+
+                <div class="risk-card">
+
+                    <span class="eyebrow">
+                        CURRENT RISK
+                    </span>
+
+                    <div class="risk-circle">
+
+                        <strong id="riskValue">
+                            6
+                        </strong>
+
+                        <span>
+                            %
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        LOW RISK
+                    </h2>
+
+                    <p>
+                        Current sensor conditions indicate stable
+                        conveyor operation.
+                    </p>
+
+                </div>
+
+
+                <div class="prediction-details">
+
+                    <h3>
+                        Prediction Inputs
+                    </h3>
+
+                    <div class="prediction-row">
+                        <span>Vibration</span>
+                        <strong id="predVibration">
+                            0.42 g
+                        </strong>
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Temperature</span>
+                        <strong id="predTemperature">
+                            48°C
+                        </strong>
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Belt Tension</span>
+                        <strong id="predTension">
+                            62%
+                        </strong>
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Belt Speed</span>
+                        <strong id="predSpeed">
+                            3.2 m/s
+                        </strong>
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Motor Current</span>
+                        <strong id="predCurrent">
+                            8.4 A
+                        </strong>
+                    </div>
+
+                    <div class="prediction-row">
+                        <span>Material Load</span>
+                        <strong id="predLoad">
+                            55%
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ALARMS
+        ====================================================== -->
+
+        <section class="page" id="alarms">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SYSTEM EVENTS
+                    </span>
+
+                    <h2>
+                        Alarms & Events
+                    </h2>
+
+                    <p>
+                        System event history and operational records.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="empty-events">
+
+                <div>
+                    ✓
+                </div>
+
+                <h2>
+                    No active events
+                </h2>
+
+                <p>
+                    The monitoring interface is operating normally.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
